@@ -1,0 +1,50 @@
+#@layout()
+#define script()
+
+#define content()
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            规格管理
+            <small>Specification Management</small>
+        </h1>
+    </section>
+
+    <section class="content">
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <form class="form-horizontal actionPanel" action="#(CPATH)/admin/store/" method="get">
+
+
+                        </form>
+
+
+                    </div>
+
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                #@_paginate()
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box -->
+            </div>
+        </div>
+
+    </section>
+
+
+</div>
+#end
+
+
+#end
+
+

@@ -1,0 +1,148 @@
+#@layout()
+
+<!-- Required Stylesheets -->
+
+<link href="#(CPATH)/static/bootstrap-treeview-1.2.0/src/css/bootstrap-treeview.css" rel="stylesheet">
+<script src="#(CPATH)/static/bootstrap-treeview-1.2.0/src/js/bootstrap-treeview.js"></script>
+
+
+#define content()
+
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            分类管理
+            <small>Cassification Managemen</small>
+        </h1>
+    </section>
+
+    <section class="content">
+
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <form class="form-horizontal form-setting" autocomplete="off">
+                        <div class="box-body ">
+                            <button type="submit" class="btn btn-primary" >新建</button>
+                            <input id="projcatename2" >
+                            <input id="projcatecode2" >
+
+                            <div id="tree" style="height: 400px; width:400px; overflow-y :scroll;" >
+
+
+                            </div>
+
+
+                        </div>
+                    </form>
+
+
+                </div>
+                <!-- /.box -->
+            </div>
+        </div>
+
+    </section>
+
+
+</div>
+#end
+
+
+<script>
+    $(function () {
+
+        $.ajax({
+            url: "#(CPATH)/admin/tree/findAllProductTypes",
+            type: "post",
+            contentType: "application/json",
+            timeout: 30000, //超时时间：30秒
+            async: false,//false-同步（当这个ajax执行完后才会继续执行其他代码）；异步-与其他代码互不影响，一起运行。
+            success: function (data) {
+                $('#tree').treeview({
+                    data: data,//节点数据
+                    expanded: false,//初始是否展开
+                    showCheckbox: true,   //是否显示复选框
+                    highlightSelected: true,    //是否高亮选中
+                    // nodeIcon: 'glyphicon glyphicon-user',    //节点上的图标
+                    hierarchicalCheck:true,//级联勾选
+
+
+
+                    emptyIcon: '',    //没有子节点的节点图标
+                    multiSelect: false,    //多选
+                    onNodeChecked: function (event,data) {
+                        alert(data.nodeId);
+                    },
+                    onNodeSelected: function (event, data) {
+
+                        // alert(data.nodeId);
+                    }
+                });
+                console.log(data);
+
+            }, error: function (data) {
+                alert(data)
+                console.log(data);
+            }
+        });
+
+        $("#tree").treeview("addNode", [2, { node: { text: "新加的菜单", href: "001005" } }]);
+
+
+    })
+
+
+    function savecate(){
+        if ($(event.target).children(".glyphicon").hasClass("glyphicon-plus") || $(event.target).children(".glyphicon").hasClass("glyphicon-minus"))
+        {
+            $(event.target).children(".glyphicon")[0].click();
+        }
+
+    }
+
+
+</script>
+
+
+
+<!--<script>-->
+    <!--var $tree;-->
+    <!--$(function () {-->
+        <!--$tree = $('#tree');-->
+        <!--$.getJSON("#(CPATH)/admin/tree/findAllProductTypes", function (data) {-->
+
+            <!--treeInit(data);-->
+        <!--});-->
+    <!--});-->
+
+    <!--/**-->
+     <!--* 树初始化-->
+     <!--*/-->
+    <!--function treeInit(defaultData) {-->
+        <!--$tree.treeview({-->
+            <!--data: defaultData,-->
+            <!--levels: 1,-->
+            <!--showCheckbox: true,-->
+            <!--onNodeExpanded: addNextNode-->
+        <!--});-->
+    <!--}-->
+
+    <!--/**-->
+     <!--* 一个节点被展开 惰性加载-->
+     <!--*/-->
+    <!--function addNextNode(event, node) {-->
+
+        <!--$.getJSON("#(CPATH)/admin/tree/findAllProductTypes", function (data) {-->
+
+            <!--$tree.treeview("deleteChildrenNode", node.nodeId);-->
+            <!--$tree.treeview("addNode", [node.nodeId, {node: data}]);-->
+
+        <!--});-->
+    <!--}-->
+
+<!--</script>-->
+
+

@@ -1,0 +1,126 @@
+#@layout()
+
+
+
+#define content()
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            新增商品
+            <small>New Commodity</small>
+        </h1>
+    </section>
+
+    <section class="content">
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                    </div>
+
+                    <form class="form-horizontal form-setting" autocomplete="off"
+                          id="newCommodity">
+                        <div class="box-body ">
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">商品图片</label>
+                                <div class="col-sm-6">
+                                    <button type="button"
+                                            for-src="commodity_img"
+                                            for-input="commodity_logo_input"
+                                            class="jp-image-browser btn btn-flat btn-default btn-xs">
+                                        <i class="fa fa-fw fa-image"></i> 选择图片
+                                    </button>
+                                    <br/>
+                                    <img id="commodity_img"  src="#(CPATH)#(commodity.image_url ??)">
+                                    <input type="hidden" id="commodity_logo_input" name="commodity_image">
+                                </div>
+
+
+                            </div>
+
+
+                            <h4 class="page-header"></h4>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">商品品牌</label>
+                                <div class="col-sm-6">
+                                    <select class="form-control">
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </select>
+                                    <!--<input type="input" class="form-control"-->
+                                           <!--name="brand_id" value="#(commodity.brand_id ??)">-->
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">商品名称</label>
+                                <div class="col-sm-6">
+                                    <input type="input" class="form-control"
+                                           name="commodity_name" value="#(commodity.name ??)">
+                                    <input type="hidden" class="form-control"
+                                           name="commodity_id" value="#(commodity.id ??)" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">商品积分</label>
+                                <div class="col-sm-6">
+                                    <input type="input" class="form-control"
+                                           name="commodity_price" value="#(commodity.price ??)">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">商品详情</label>
+                                <div class="col-sm-6">
+                                    <input type="input" class="form-control"
+                                           name="commodity_details" value="#(commodity.details ??)">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">商品库存</label>
+                                <div class="col-sm-6">
+                                    <input type="input" class="form-control"
+                                           name="commodity_stock" value="#(commodity.stock ??)">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">商品状态</label>
+                                <div class="col-sm-6">
+                                    <input type="input" class="form-control"
+                                           name="commodity_status" value="#(commodity.status ??)">
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                        <div class="box-footer">
+                            <div class="col-sm-offset-2 col-sm-10 submit-block">
+                                <div class="box-submit">
+                                    <button type="submit" class="btn btn-primary">保存</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+
+                </div>
+                <!-- /.box -->
+            </div>
+        </div>
+
+    </section>
+
+
+</div>
+#end

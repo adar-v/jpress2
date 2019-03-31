@@ -1,0 +1,140 @@
+jpress v2.0-rc.6:
+新增：新增插件升级功能，升级的时候不会调用插件的 onInstall 和 onUninstall
+新增：文章和页面编写功能，支持 Ctrl + s（mac下的command+s）保存功能，感谢 [@ZJWave](https://gitee.com/zjwave)
+新增：可以通过 JPress 插件的方式自动发现 微信运营插件 的功能
+新增：jpress.bat ，通过 jpress.bat {start stop restart} 可以对 jpress 进行启动和重启等功能
+新增：对已经存在的文章进行切换编辑器和编辑模式的功能
+新增：全局变量 C 的支持，C 代表 Controller，在模板中可以直接通过 C.getInt("para") 等方式来获取数据
+新增：可以通过 URL 中的 v 参数来指定当前页面渲染哪个模板，更加方便灵活
+新增：新增模板支持的flags设置支持，方便运营人员在后台直接选择
+优化：修改后台的文章列表不走 order_number 默认排序，否则新发布的文章需要翻页到后面才能看到的问题
+优化：大幅度优化 escapeHtml() 方法的性能
+优化：页面的模板选择修改为同文章一样的位置
+修复：当文章插入有html代码块的时候，模板通过 text 属性获取的内容可能导致模板标签错乱的问题
+修复：当启动附件的图片水印功能，但是没有设置水印图片的，在上传图片时会出现空指针异常的问题
+修复：当插件自身出现异常时，无法卸载该异常插件的问题
+
+
+
+jpress v2.0-rc.5:
+新增：代码生成器新增直接生成后台html代码的功能，感谢 [@java中国](https://gitee.com/eam)
+新增：共享方法 option() ，新增默认参数的指定功能
+新增：文章编写的时候新增 order_number 输入框，方便自定义排序的功能。
+新增：新增自定义后台菜单的 target 功能，感谢 [@Retire](https://gitee.com/retire)
+新增：新增文章的 isActive() 方法，判断文章是否高亮的功能
+新增：新增自定义后台登录地址的功能，配置 jpress.adminLoginPage = /admin/xxx 即可，更加安全
+新增：注册开关功能，可以在特定需求是进行注册关闭
+优化：插件安装的文章提示问题，确实文字不明其含义。
+优化：优化 markdown 导入是新增直接导入类别的功能。感谢 [@whoismy8023](https://gitee.com/whoismy8023)
+优化：重构 SmartField ，使其更加方便合理。
+优化：优化 ApiInterceptor 提示问题，使之错误提示更加明确合理。
+优化：优化 菜单 和 文章分类的高亮的性能问题
+优化：修改 EhcacheManager 的默认缓存内存大小，支持阿里云 1G 内存或更小的服务器使用。
+优化：优化 ModuleManager，支持在插件里添加 Module 的监听功能
+优化：当插件卸载的时候，添加确认对话框，防止误删插件的问题
+优化：当永久删除用户的时候，添加确认对话框，防止误删用户的问题
+优化：优化 ControllerBase 代码，当渲染默认的Json的时候减少对象创建，性能更好。
+优化：优化 datepicker 的选择日期功能
+优化：优化 UserServiceProvider，当关联查询的时候方便渲染用户的用户名的问题
+优化：优化 ArticleServiceProvider，重构代码减少代码量并删除无用代码
+优化：优化 AddonManager，完善插件指令的自动加载和卸载功能
+优化：优化 AddonManager，支持当插件安装失败时，进行 "回退" 功能
+优化：删除 AliyunOpenSearcher 的无用代码
+优化：优化 用户注册功能，当输入信息出错的时候给出的是中文而非英文
+优化：优化 前台 逻辑，新增 CSRF 输出，方便在前台进行退出等操作功能
+优化：优化 CKEditor，当上传图片的时候不指定图片大小，方便模板的自动适配
+优化：优化 文章查询，添加相应的缓存提高性能。
+优化：优化 AddonClassLoader 加载插件时，可能导致不正常的Classloader关闭问题
+优化：优化 HasPermission 指令，当出现错误是显示行号的问题
+优化：优化后台访问时，当用户无权限直接404
+优化：优化当插件启动的时出现异常时，没有正确提示的问题
+优化：优化后台菜单间距大小的样式问题
+修复：修复插件由于缓存，当插件卸载后再次安装会导致不同的Classloader导致类转化错误的问题。
+修复：修复插件卸载后再次安装，会由于 template cache 导致插件html和指令不更新的问题。
+修复：修复 Dockerfile 构架的镜像无法支撑渲染验证码的问题
+修复：修复 MenuManager 可能会出现空指针异常的问题
+修复：修复插件列表不正常显示版本号的问题
+文档：优化模板开发文档。
+文档：添加快速开始文档。
+文档：完善关于JPress文档。
+
+
+
+jpress v2.0-rc.4:
+新增：#userArticles() 模板指令的支持，用于读取某个用户的文章列表。
+新增：#comments() 模板指令，用于读取系统的所有评论的功能。
+新增：文章的新增是否有图片、视频、音频的判断，方便在模板上做出不同的UI效果。
+新增：#(user.url)的个人主页读取，方便在模板添加链接直接连接到用户的个人主页。
+优化：修改 ArticleCategoriesDirective 的方法 getParaToLang 为 getParaToLong。感谢 [@retire](https://gitee.com/retire)
+优化：优化 JPress 的 Dockerfile 构建脚本，使 JPress 更加轻量。
+优化：优化 JPress 后台的 js 逻辑，使 html 模板文件更加简洁。
+优化：优化 JPress 相关文档，添加 JPress 小白安装的教程。
+优化：AddonInfo 删除无用的 updateUrl 属性配置，升级无需在依赖该 url 配置。
+优化：优化当前端开发人员开发 JPress 模板的时候，删除 JPress 所有模板，或者一个模板都没有的时候会出错的问题。
+优化：优化 JPress 菜单和分类读取的高亮逻辑提高性能，同时添加 isActive() 模板函数的支持。
+优化：当模板指令使用不当，参数不正确等原因JPress主动抛出异常时，添加模板文件和行号的显示。
+优化：升级 Jboot 到最新版本，解决当模板 500 错误的时候无法正确在html输出异常信息的问题。
+修复：Lucene 搜索引擎搜索文章的时候，QueryParser.escape 可能会出错的问题。感谢 [@ZJWave](https://gitee.com/zjwave)
+修复：JPress 初次安装的时候，倘若安装新的插件，同时插件需要数据库连接功能无法使用的问题。
+修复：当管理员忘记密码，需要删除 install.lock 文件重置 JPress 密码的时候回出错的问题。
+修复：修复当插件安装成功，卸载后升级新版本的插件，只有插件的模板文件生效新代码不生效的问题。
+修复：在Windows下同下，后台上传的插件启用后，卸载该插件无法删除其对应jar包的问题。
+
+
+
+jpress v2.0-rc.3:
+新增：SmartField 功能，可以通过插件对表进行扩展
+新增：通过Lucene搜索文章的时候，支持关键字高亮的功能，感谢 [@ZJWave](https://gitee.com/zjwave)
+新增：Module代码生成器可以直接生产 ModuleListener 的功能，感谢 [@java中国](https://gitee.com/eam)
+新增：新增 文章元信息 自定义插件，通过该插件可以对文章添加任何字段的功能。
+优化：优化指令的参数传递，当需要传true 和 int 时，传入 "true" 或 "1" 会出错的问题
+优化：当直接把JPress导入到idea开发工具，没有进行编译直接运行的时候给出优雅的错误提示
+优化：当安装JPress的时候，在填写数据库的时候给出更加相信的提示信息，感谢 [@jiangzeyin](https://gitee.com/jiangzeyin)
+优化：更新JPress的安装文档为最新的JPress v2.0 版本
+优化：统一 JPress 项目编码设置，放在只window系统下部分机器会出现乱码的问题， 感谢 [@java中国](https://gitee.com/eam)
+优化：通知 JPress 版本为 2.0 版本，防止独立编译子项目的时候出错的问题
+优化：#CategoriesDirective 指令新增 parentFlag 参数的支持，用于读取某个分类的所有子分类
+优化：由于内置了 ElasticSearch 支持后，出现 log4j-api 警告提示的问题
+优化：JPress的Dockerfile编译过慢的问题，添加了阿里云maven源配置的支持
+优化：当阿里云和腾讯云的短信发送功能发送失败的时候，给出具体的错误log的提示
+优化：升级 JPress 的核心框架 Jboot 到最新版本 Jboot-rc.9 版本
+修复：搜索页面使用 #ArticleSearchPageDirective 指令的时候出现空指针异常的问题
+修复：Lucene和ElasticSearch搜索文章的时候可能会出现搜索出草稿箱文章的问题
+修复：JPress安装的时候，写入的JPress开发模式错误的问题
+修复：JPress第一次安装的时候，通过微信小程序对接JPress会出现Jwt创建token出错的问题
+修复：JPress的Dockerfile生产的docker无法后台运行的问题，感谢 [@chencan_it](https://gitee.com/chencan_it)
+文档：修复 #categoryArticles 实例代码错误的问题
+文档：修复 #categories 参数描述错误的问题
+
+
+
+jpress v2.0-rc.2:
+新增：插件添加自有配置的设置功能
+新增：插件添加自有的数据源功能
+新增：AddonUtil新增execSql和execSqlFile功能，方便插件在安装的过程中创建的数据表
+新增：AddonModuleGenerator，用于自动生成插件的基础代码
+新增：全局变量（APATH）的支持，方便访问插件本身自己的资源文件
+新增：文档添加 #tags() 的相关文档
+优化：docker构建脚本、减少docker镜像文件大小
+优化：自启动脚本，通过 ./jpress start 进行启动
+优化：文章搜索引擎工程类创建的搜索引擎支持AOP注入
+优化：插件监听器 onStart 修改为 onStart(AddonInfo addonInfo)，onStop 修改为 onStop(AddonInfo addonInfo)
+优化：JPressInstaller 重命名为 Installer
+优化：AddonHandlerProcesser 不让用户通过浏览器访问插件的 .sql 文件
+优化：AddonManager 对插件进行安装的时候，优化提示错误
+优化：Service层的代码生成器，paginate 需要强转的问题
+优化：优化后台的部分文字提示，更加人性化
+优化：优化 maven 的 pom 文件，减少不必要的资源文件打包，是JPress项目整体文件大小进一步减小
+优化：优化 ApiInterceptor 的错误提示，当发生错误的时候能直观定位问题
+优化：升级 Jboot 到最新版本 v2.0-rc.8 版本
+修复：JPress安装的时候，倘若不设置数据库密码可能出现无法安装的问题
+修复：插件工具类AddonUtil无法正确关闭资源的问题
+修复：AddonControllerProcesser 可能出现无法获取正确的 para 的问题
+修复：在文章列表页 `/article/category` 菜单无法正确高亮的问题
+
+
+jpress v2.0-rc.1:
+新增：插件功能
+新增：文章搜索功能
+优化：升级 Jboot 到 v2.0 版本
+
